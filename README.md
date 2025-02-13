@@ -2,7 +2,8 @@ This is a template that you can customize to create your own data wrangler for y
 
 ## Features
 
-- Interact with your Obsidian data, including properties and Markdown text, like an ORM that is fully type-safe.
+- Interact with your Obsidian data like an ORM that is fully type-safe.
+- Wraps around [front-matter](https://www.npmjs.com/package/front-matter) to provide access to both YAML frontmatter and Markdown text content.
 - Write your own parsing logic - the returned data structure doesn't have to match your Obsidian schema 1-to-1
 - Most of the core functionality and (minimal) state is contained within a [Singleton class](src/services/obsidian.ts) - no need to manage instantiation, just [script](scripts/add-daily-note.ts) away!
 - Auto-caches repeated data requests.
