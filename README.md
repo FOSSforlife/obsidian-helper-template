@@ -4,7 +4,7 @@ This is a template that you can customize to create your own data wrangler for y
 
 - Interact with your Obsidian data, including properties and Markdown text, like an ORM that is fully type-safe.
 - Write your own parsing logic - the returned data structure doesn't have to match your Obsidian schema 1-to-1
-- Most of the core functionality is contained within a Singleton class - no need to manage instantiation, just script away!
+- Most of the core functionality is contained within a [Singleton class](src/services/obsidian.ts) - no need to manage instantiation, just [script](scripts/add-daily-note.ts) away!
 - Auto-caches repeated data requests.
 - Makes use of functional programming principles, making the code readable, testable, and super easy to modify.
 
