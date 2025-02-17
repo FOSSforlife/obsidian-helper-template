@@ -11,18 +11,17 @@ export interface DailyNote extends ObsidianFile {
 }
 
 export class DailyNoteRepository {
-  private folder = 'daily';
-  private static _instance: DailyNoteRepository;
+  private static folder = 'daily';
 
-  constructor(private obsidianService = ObsidianService.instance) {}
-
-  async today(): Promise<DailyNote> {
+  static async today(
+    obsidianService = ObsidianService.instance
+  ): Promise<DailyNote> {
     const currentDate = new Date();
     const filePath = path.join(
       this.folder,
       formatDate(currentDate, 'YYYY-LL-dd')
     );
-    const existing = await this.obsidianService.readFile(filePath);
+    const existing = await obsidianService.readFile(filePath);
 
     if (existing) {
       return this.deserialize(existing);
@@ -36,28 +35,27 @@ export class DailyNoteRepository {
       attributes: {},
       body: '',
     };
-    await this.obsidianService.writeFile(filePath, newFile);
+    await obsidianService.writeFile(filePath, newFile);
     return newFile;
   }
 
-  async save(dailyNote: DailyNote): Promise<void> {
-    await this.obsidianService.writeFile(
+  static async save(
+    dailyNote: DailyNote,
+    obsidianService = ObsidianService.instance
+  ): Promise<void> {
+    await obsidianService.writeFile(
       dailyNote.metadata.path,
       this.serialize(dailyNote)
     );
   }
 
-  private deserialize(dailyNoteFile: ObsidianFile): DailyNote {
+  private static deserialize(dailyNoteFile: ObsidianFile): DailyNote {
     // include your own parsing logic here
     return dailyNoteFile as DailyNote;
   }
 
-  private serialize(dailyNote: DailyNote): ObsidianFile {
+  private static serialize(dailyNote: DailyNote): ObsidianFile {
     // include your own Markdown generation here
     return dailyNote as ObsidianFile;
-  }
-
-  static get instance(): DailyNoteRepository {
-    return this._instance || (this._instance = new this());
   }
 }
